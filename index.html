@@ -1,10 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Revisidus</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisidus Earth LLC | Scrap to Good</title>
+  <meta name="description" content="Revisidus Earth LLC collects scrap metal and sells it to recycling yards, donating the proceeds to charity. We also create earth-and-metal-inspired art for sale." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b3d2e;      /* deep evergreen */
+      --bg-2: #0f5441;    /* mid evergreen */
+      --accent: #b3ffb3;  /* mint */
+      --gold: #d1b56f;    /* metal/gold hint */
+      --ink: #0f172a;     /* dark text */
+      --muted: #475569;   /* muted text */
+      --paper: #f8fafc;   /* light surface */
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; color: var(--ink); background: #0a0f0e;}
+    a { color: var(--bg-2); text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    /* --- Layout --- */
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px);
+      background: rgba(10, 15, 14, 0.6); border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; padding: .8rem 0;
+      color: white;
+    }
+    .brand { display: flex; align-items: center; gap: .75rem; }
+    .brand .mark { width: 38px; height: 38px; border-radius: 10px; background: url('./RevisidusLogo.png') center/contain no-repeat, linear-gradient(135deg, var(--accent), #6ee7b7); display:grid; place-items:center; position:relative; box-shadow: 0 10px 30px rgba(111,255,188,.25);} 
+@media (prefers-reduced-motion: no-preference){
+  .brand .mark::after{ content:""; position:absolute; inset:-2px; border-radius:12px; background: conic-gradient(from 0deg, rgba(179,255,179,.2), rgba(209,181,111,.25), rgba(179,255,179,.2)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; padding:2px; animation: spin 6s linear infinite; }
+  @keyframes spin{ to { transform: rotate(1turn); } }
+}
+    .brand .mark svg { width: 24px; height: 24px; }
+    .brand .name { font-weight: 800; letter-spacing: .4px; font-size: 1.05rem; }
+    .nav a { color: #e6ffef; opacity: .9; padding: .55rem .8rem; border-radius: 10px; }
+    .nav a:hover { background: rgba(179,255,179,0.1); opacity: 1; }
+
+    /* --- Hero --- */
+    .hero {
+      background: none;
+      color: #f0fff6;
+      padding: clamp(3rem, 8vw, 8rem) 0 4rem;
+      position: relative; isolation: isolate;
+      overflow: hidden;
+    }
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,15,14,.55), rgba(10,15,14,.8) 60%, rgba(10,15,14,1));z-index:-1}
+    .hero-grid{display:grid;grid-template-columns: 1.1fr .9fr; gap: 2rem; align-items: center}
+    .hero h1{font-family: "Playfair Display", serif; line-height:1.05; font-size: clamp(2.2rem, 5vw, 4rem); margin: 0 0 1rem}
+    .tag{display:inline-flex; align-items:center; gap:.5rem; background: rgba(179,255,179,.15); border:1px solid rgba(179,255,179,.3); padding:.4rem .7rem; border-radius:999px; font-size:.85rem; }
+    .hero p{font-size: clamp(1rem, 1.3vw, 1.15rem); max-width: 60ch; color:#e3ffee}
+    .cta-row{display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem}
+    .btn{border:0; padding:.85rem 1.05rem; border-radius:12px; font-weight:700; cursor:pointer}
+    .btn-primary{background: linear-gradient(135deg, #a7f3d0, #86efac); color:#0a2018;}
+    .btn-primary:hover{filter:brightness(1.05)}
+    .btn-ghost{background: transparent; border:1px solid rgba(255,255,255,.25); color:#eafff2}
+
+    .hero-card{
+      background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:18px; padding:1rem; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .hero-card img{ border-radius:12px }
+    .hero-mini{display:grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top:.8rem}
+
+    /* --- Tabs --- */
+    .tabs{ margin: 3rem auto 2rem; }
+    .tab-list{ display:flex; gap:.6rem; flex-wrap:wrap }
+    .tab-list button{ background: var(--paper); color: var(--ink); border:1px solid #e2e8f0; padding:.6rem .9rem; border-radius:10px; cursor:pointer; font-weight:600 }
+    .tab-list button[aria-selected="true"]{ background: #ebfff0; border-color: #bfffd0; box-shadow: 0 6px 20px rgba(111,255,188,.25) }
+    .tab-panels{ background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:1.2rem }
+    .panel{ display:none }
+    .panel.active{ display:block }
+    .lede{ font-size:1.05rem; color: var(--muted) }
+
+    /* --- Cards/Sections --- */
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1rem }
+    .card{ background: #fff; border:1px solid #e2e8f0; border-radius:16px; padding:1rem }
+    .icon{ width: 42px; height: 42px; border-radius: 12px; background: #ecfeff; display:grid; place-items:center; }
+
+    .section{ padding: 3rem 0; background: var(--paper) }
+    .section.alt{ background: #ffffff }
+
+    /* --- Gallery --- */
+    .masonry{ columns: 3 280px; column-gap: 1rem }
+    .masonry figure { break-inside: avoid; margin: 0 0 1rem }
+    .masonry img{ border-radius: 12px }
+
+    /* --- Footer --- */
+    footer{ background: #081e18; color: #c9ffe0; padding: 2.5rem 0; border-top:1px solid rgba(255,255,255,.05) }
+    footer a{ color:#b3ffb3 }
+    .small{ font-size: .9rem; color:#9de5c7 }
+
+    /* --- Responsive --- */
+    @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr } }  /* Background slideshow */
+  .slideshow{position:absolute; inset:0; z-index:-1}
+  .slideshow .slide{position:absolute; inset:0; background-position:center; background-size:cover; opacity:0; transition: opacity 900ms ease}
+  .slideshow .slide.active{opacity:1}
+  .slideshow .overlay{position:absolute; inset:0; pointer-events:none; background:
+      radial-gradient(1000px 600px at 15% -10%, rgba(179,255,179,.15), transparent 60%),
+      radial-gradient(1200px 700px at 90% 10%, rgba(209,181,111,.15), transparent 55%),
+      linear-gradient(180deg, rgba(10,15,14,.55), rgba(10,15,14,.85) 60%, rgba(10,15,14,1));}
+  </style>
+  <script>
+    // Simple tab controller
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('[role="tab"]');
+      const panels = document.querySelectorAll('[role="tabpanel"]');
+      function activate(id){
+        panels.forEach(p => p.classList.toggle('active', p.id === id));
+        buttons.forEach(b => b.setAttribute('aria-selected', String(b.getAttribute('aria-controls') === id)));
+      }
+      buttons.forEach(btn => btn.addEventListener('click', () => activate(btn.getAttribute('aria-controls'))));
+      // default
+      activate('tab-what');
+    });
+
+    // Email action placeholders
+    function mailto(subject){
+      window.location.href = `mailto:rushalibetala@gmail.com?subject=${encodeURIComponent(subject)}`;
+    }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Revisidus Earth LLC",
+    "url": "https://revisidusearth.example",
+    "logo": "./RevisidusLogo.png",
+    "description": "Collect scrap metal, sell to recycling yards, donate proceeds to charity; create earth & metal art for sale.",
+    "sameAs": [
+      "https://instagram.com/your-handle",
+      "https://facebook.com/your-page"
+    ]
+  }
+  </script>
 </head>
 <body>
-  <h1>REVISIDUS</h1>
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav" aria-label="Main navigation">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div class="name">Revisidus Earth LLC</div>
+      </div>
+      <nav>
+        <a href="#how">How It Works</a>
+        <a href="#tabs">About</a>
+        <a href="#gallery">Art</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="slideshow" aria-hidden="true">
+      <div class="slide active" style="background-image:url('./RevisidusLogo.png')"></div>
+      <div class="slide"></div>
+      <div class="overlay"></div>
+    </div>
+    <div class="container hero-grid">
+      <div>
+        <span class="tag" aria-label="mission tag">🌍 Scrap → Charity • Art → Commerce</span>
+        <h1>
+          Transforming metal into <em style="color:var(--gold); font-style: normal">meaning</em>
+        </h1>
+        <p>
+          We collect unwanted scrap metal and sell it to recycling yards, then donate the proceeds to charity. Alongside this mission, we craft earth-and-metal inspired artwork available for purchase online.
+        </p>
+        <div class="cta-row">
+          <button class="btn btn-primary" onclick="mailto('Schedule Scrap Pickup')">Schedule a Scrap Pickup</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('tabs').scrollIntoView({behavior:'smooth'})">Learn more</button>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="highlight images">
+        <img src="./RevisidusLogo.png" alt="Revisidus Earth artwork 1" />
+        <div class="hero-mini">
+          <img src="./ImageArt (1).jpeg" alt="Revisidus Earth artwork 2" />
+          <img src="./ImageArt (2).jpeg" alt="Revisidus Earth artwork 3" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="section alt">
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="grid-3" style="margin-top: 1rem">
+        <div class="card">
+          <div class="icon">♻️</div>
+          <h3>1) Collect</h3>
+          <p class="lede">We pick up or receive drop-offs of scrap: copper, aluminum, steel, brass, appliances, and more.*</p>
+        </div>
+        <div class="card">
+          <div class="icon">🏭</div>
+          <h3>2) Recycle</h3>
+          <p class="lede">We sort and sell the metal to reputable, licensed recycling yards at fair market rates.</p>
+        </div>
+        <div class="card">
+          <div class="icon">💚</div>
+          <h3>3) Donate</h3>
+          <p class="lede">Proceeds from scrap sales are donated to partner charities—and we publish transparent summaries.</p>
+        </div>
+      </div>
+      <p class="small" style="margin-top:.6rem">* We follow local laws and cannot accept hazardous, stolen, or non-compliant materials.</p>
+    </div>
+  </section>
+
+  <!-- Tabs (About) -->
+  <section id="tabs" class="section">
+    <div class="container tabs">
+      <h2>About Revisidus Earth</h2>
+      <div class="tab-list" role="tablist" aria-label="About tabs">
+        <button role="tab" aria-selected="true" aria-controls="tab-what" id="tabbtn-what">What We Do</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-donate" id="tabbtn-donate">Scrap → Donation</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-art" id="tabbtn-art">Art & Shop</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-impact" id="tabbtn-impact">Environmental Impact</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-faq" id="tabbtn-faq">FAQ</button>
+      </div>
+      <div class="tab-panels">
+        <article id="tab-what" class="panel" role="tabpanel" aria-labelledby="tabbtn-what">
+          <p class="lede">Revisidus Earth LLC is a mission-driven small business. Our core purpose is to <strong>remove metal waste from the environment</strong>, turn it into funds for <strong>charitable causes</strong>, and celebrate the beauty of the planet through <strong>handmade art</strong>.</p>
+          <ul>
+            <li>Responsible scrap collection & sorting</li>
+            <li>Fair, transparent resale to recycling yards</li>
+            <li>Donations to vetted non-profits</li>
+            <li>Original art crafted from earth-and-metal motifs</li>
+          </ul>
+        </article>
+        <article id="tab-donate" class="panel" role="tabpanel" aria-labelledby="tabbtn-donate">
+          <p class="lede">After each recycling sale, we donate the proceeds to a selected charity. Quarterly, we release a brief impact note detailing <em>weight recycled</em>, <em>sale amount</em>, and <em>donation receipts</em>.</p>
+          <p>Want to suggest a charity? <a href="#contact">Reach out</a>—we'd love to collaborate.</p>
+        </article>
+        <article id="tab-art" class="panel" role="tabpanel" aria-labelledby="tabbtn-art">
+          <p class="lede">Our art line channels textures of ore, patina, and stone into wall pieces, small sculptures, and prints. Profits from art <em>support our business</em> and enable us to scale the donation effort.</p>
+          <ul>
+            <li>Limited-edition wall art (metal + mixed media)</li>
+            <li>Small desk sculptures</li>
+            <li>Fine-art prints available online</li>
+          </ul>
+          <p><button class="btn btn-primary" onclick="alert('Shop coming soon!')">Visit the Shop</button></p>
+        </article>
+        <article id="tab-impact" class="panel" role="tabpanel" aria-labelledby="tabbtn-impact">
+          <p class="lede">Recycling metal significantly reduces energy use and emissions compared to mining virgin ore. Every pound diverted from landfill is a win for the planet.</p>
+          <ul>
+            <li>Lower greenhouse gas emissions vs. raw extraction</li>
+            <li>Conserves natural resources & reduces pollution</li>
+            <li>Encourages circular economy in local communities</li>
+          </ul>
+        </article>
+        <article id="tab-faq" class="panel" role="tabpanel" aria-labelledby="tabbtn-faq">
+          <details open>
+            <summary><strong>What metals do you take?</strong></summary>
+            <p>Common items: copper, aluminum, brass, stainless, steel, wire, car batteries (non-leaking), appliances. Contact us for specifics.</p>
+          </details>
+          <details>
+            <summary><strong>Do you offer pickup?</strong></summary>
+            <p>Yes—subject to availability and volume. Use the button below to schedule.</p>
+          </details>
+          <details>
+            <summary><strong>Are donations tax-deductible?</strong></summary>
+            <p>We donate to registered charities and provide their receipts in impact notes. Please consult your tax advisor for personal deduction eligibility.</p>
+          </details>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery / Art -->
+  <section id="gallery" class="section alt">
+    <div class="container">
+      <h2>Gallery</h2>
+      <p class="lede">A peek at textures and tones that inspire our work.</p>
+      <div class="masonry" aria-label="art gallery">
+        <figure>
+          <img src="./ImageArt (1).jpeg" alt="Art image 1"/>
+        </figure>
+        <figure>
+          <img src="./ImageArt (2).jpeg" alt="Art image 2"/>
+        </figure>
+        <figure>
+          <img src="./ImageArt (3).jpeg" alt="Art image 3"/>
+        </figure>
+        <figure>
+          <img src="./ImageArt (4).jpeg" alt="Art image 4"/>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / CTA -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Schedule a pickup or say hello</h2>
+      <p class="lede">Tell us what you have and your location; we’ll get back to confirm details.</p>
+      <form onsubmit="event.preventDefault(); mailto('Scrap Inquiry');" style="display:grid; grid-template-columns: 1fr 1fr; gap: .8rem; background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:1rem">
+        <label> Name
+          <input required placeholder="Your name" style="width:100%; padding:.7rem; border:1px solid #cbd5e1; border-radius:10px" />
+        </label>
+        <label> Email
+          <input type="email" required placeholder="you@example.com" style="width:100%; padding:.7rem; border:1px solid #cbd5e1; border-radius:10px" />
+        </label>
+        <label style="grid-column: 1 / -1"> What metals/items do you have?
+          <textarea required rows="4" placeholder="e.g., aluminum siding, copper wire, old appliances" style="width:100%; padding:.7rem; border:1px solid #cbd5e1; border-radius:10px"></textarea>
+        </label>
+        <div style="display:flex; gap:.8rem; align-items:center">
+          <button class="btn btn-primary" type="submit">Send inquiry</button>
+          <button class="btn btn-ghost" type="button" onclick="window.open('tel:+1-555-000-1234')">Call (555) 000‑1234</button>
+        </div>
+        <p class="small" style="grid-column: 1 / -1">By reaching out you agree to our basic terms; we respect your privacy and never sell your data.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:grid; grid-template-columns: 2fr 1fr; gap: 2rem">
+      <div>
+        <div class="brand" style="margin-bottom:.5rem">
+          <div class="mark" aria-hidden="true"></div>
+          <div class="name">Revisidus Earth LLC</div>
+        </div>
+        <p class="small">Mission: Collect scrap metal and sell it to recycling yards, then donate the proceeds to charity. Create earth‑and‑metal art and sell online for profit.</p>
+        <p class="small">© <span id="year"></span> Revisidus Earth LLC • All rights reserved</p>
+      </div>
+      <div>
+        <h4 style="margin:0 0 .5rem">Links</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:grid; gap:.4rem">
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#tabs">About</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <script>
+      (function(){
+        const files = [
+          "./RevisidusLogo.png",
+          "./ImageArt (1).jpeg",
+          "./ImageArt (2).jpeg",
+          "./ImageArt (3).jpeg",
+          "./ImageArt (4).jpeg"
+  </footer>
 </body>
+</html>
